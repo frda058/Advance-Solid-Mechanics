@@ -1,0 +1,639 @@
+---
+title: "Advanced Mechanics of Solids - Final Project"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(readxl)
+```
+
+
+```{r}
+#Liner 20
+PE52_L20_H32 <- read_excel("/Users/francescaabulencia/Downloads/PE-52-L20-H32.xlsx")
+PE52_L20_H32$Head <- c("32 mm")
+PE52_L20_H32$RF <- -1*PE52_L20_H32$RF
+PE56_L20_H36 <- read_excel("/Users/francescaabulencia/Downloads/PE-56-L20-H36.xlsx")
+PE56_L20_H36$Head <- c("36 mm")
+PE56_L20_H36$RF <- -1*PE56_L20_H36$RF
+
+Liner20 <- rbind(PE52_L20_H32, PE56_L20_H36)
+Liner20$RF <- Liner20$RF * (10^-3)
+Liner20$U2L <- Liner20$U2L * (-10^3)
+
+Liner20$`Fractional Displacement` <- Liner20$U2L/10
+
+
+a <- ggplot(Liner20, aes(x=Time, y=RF)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Force Required to Deform a 20mm UHMWPE Liner by 5%") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) +  scale_y_continuous(limits = c(0,50)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.87, 0.85))
+
+ggsave("a.png", a, width = 6, height = 3, units = c("in"))
+
+
+d <- ggplot(Liner20, aes(x=Time, y=`Fractional Displacement`)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Displacement of 20mm UHMWPE Liner by 5%") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position = c(0.87, 0.85))+ theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +  scale_y_continuous(limits = c(0,))
+
+ggsave("d.png", d, width = 6, height = 3, units = c("in"))
+    
+#Liner 22
+PE54_L22_H32 <- read_excel("/Users/francescaabulencia/Downloads/PE-54-L22-H32.xlsx")
+PE54_L22_H32$Head <- c("32 mm")
+PE54_L22_H32$RF <- -1*PE54_L22_H32$RF
+PE58_L22_H36 <- read_excel("/Users/francescaabulencia/Downloads/PE-58-L22-H36.xlsx")
+PE58_L22_H36$Head <- c("36 mm")
+PE58_L22_H36$RF <- -1*PE58_L22_H36$RF
+
+Liner22 <- rbind(PE54_L22_H32, PE58_L22_H36)
+Liner22$RF <- Liner22$RF * (10^-3)
+Liner22$U2L <- Liner22$U2L * (-10^3)
+
+Liner22$`Fractional Displacement` <- Liner22$U2L/11
+
+
+b <-ggplot(Liner22, aes(x=Time, y=RF)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Force Required to Deform a 22mm UHMWPE Liner by 5%") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) +  scale_y_continuous(limits = c(0,50)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.87, 0.85))
+
+ggsave("b.png", b, width = 6, height = 3, units = c("in"))
+
+
+c <- ggplot(Liner22, aes(x=Time, y=`Fractional Displacement`)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Displacement of 22mm UHMWPE Liner by 5%") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position = c(0.87, 0.85))+ theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) 
+
+ggsave("c.png", c, width = 6, height = 3, units = c("in"))
+```
+
+
+
+```{r}
+#Liner 20
+PE52_L20_H32_1 <- read_excel("/Users/francescaabulencia/Downloads/1PE-52-L20-H32.xlsx")
+PE52_L20_H32_1$Head <- c("32 mm")
+PE52_L20_H32_1$RF <- -1*PE52_L20_H32_1$RF
+PE56_L20_H36_1 <- read_excel("/Users/francescaabulencia/Downloads/1PE-56-L20-H36.xlsx")
+PE56_L20_H36_1$Head <- c("36 mm")
+PE56_L20_H36_1$RF <- -1*PE56_L20_H36_1$RF
+
+Liner20_1 <- rbind(PE52_L20_H32_1, PE56_L20_H36_1)
+Liner20_1$RF <- Liner20_1$RF * (10^-3)
+Liner20_1$U2L <- Liner20_1$U2L * (-10^3)
+
+Liner20_1$`Fractional Displacement` <- Liner20_1$U2L/10
+
+
+a <- ggplot(Liner20_1, aes(x=Time, y=RF)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Force Required to Deform a 20mm UHMWPE Liner by 1%") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) +  scale_y_continuous(limits = c(0,20)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.87, 0.85)) +  scale_y_continuous(limits = c(0,15))
+
+
+ggsave("a.png", a, width = 6, height = 3, units = c("in"))
+
+
+d <- ggplot(Liner20_1, aes(x=Time, y=`Fractional Displacement`)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Displacement of 20mm UHMWPE Liner by 1%") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position = c(0.87, 0.85))+ theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) 
+
+ggsave("d.png", d, width = 6, height = 3, units = c("in"))
+    
+#Liner 22
+PE54_L22_H32_1 <- read_excel("/Users/francescaabulencia/Downloads/1PE-54-L22-H32.xlsx")
+PE54_L22_H32_1$Head <- c("32 mm")
+PE54_L22_H32_1$RF <- -1*PE54_L22_H32_1$RF
+PE58_L22_H36_1 <- read_excel("/Users/francescaabulencia/Downloads/1PE-58-L22-H36.xlsx")
+PE58_L22_H36_1$Head <- c("36 mm")
+PE58_L22_H36_1$RF <- -1*PE58_L22_H36_1$RF
+
+Liner22_1 <- rbind(PE54_L22_H32_1, PE58_L22_H36_1)
+Liner22_1$RF <- Liner22_1$RF * (10^-3)
+Liner22_1$U2L <- Liner22_1$U2L * (-10^3)
+
+Liner22_1$`Fractional Displacement` <- Liner22_1$U2L/11
+
+
+b <-ggplot(Liner22_1, aes(x=Time, y=RF)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Force Required to Deform a 22mm UHMWPE Liner by 1%") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) +  scale_y_continuous(limits = c(0,20)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.87, 0.85))  +  scale_y_continuous(limits = c(0,15))
+
+
+ggsave("b.png", b, width = 6, height = 3, units = c("in"))
+
+
+c <- ggplot(Liner22_1, aes(x=Time, y=`Fractional Displacement`)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Displacement of 22mm UHMWPE Liner by 1%") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position = c(0.87, 0.85))+ theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) 
+
+ggsave("c.png", c, width = 6, height = 3, units = c("in"))
+```
+
+```{r}
+PE52_L24_H28 <- read_excel("/Users/francescaabulencia/Downloads/PE-52-L24-H28.xlsx")
+PE52_L24_H28$Liner<- c("24 mm")
+PE54_L26_H28 <- read_excel("/Users/francescaabulencia/Downloads/PE-54-L26-H28.xlsx")
+PE54_L26_H28$Liner<- c("26 mm")
+PE56_L28_H28 <- read_excel("/Users/francescaabulencia/Downloads/PE-56-L28-H28.xlsx")
+PE56_L28_H28$Liner<- c("28 mm")
+
+
+Head28 <- rbind(PE52_L24_H28,PE54_L26_H28 ,PE56_L28_H28)
+Head28$RF <- Head28$RF * (-(10^-3))
+
+d <- ggplot(Head28, aes(x=Time, y=RF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Force Placed on a 28mm Femur Head") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) +  scale_y_continuous(limits = c(0,45))
+
+
+ggsave("d.png", d, width = 6, height = 5, units = c("in"))
+
+```
+
+
+
+```{r}
+PE52_L20_H32 <- read_excel("/Users/francescaabulencia/Downloads/PE-52-L20-H32.xlsx")
+PE52_L20_H32$Liner<- c("20 mm")
+
+PE54_L22_H32 <- read_excel("/Users/francescaabulencia/Downloads/PE-54-L22-H32.xlsx")
+PE54_L22_H32$Liner<- c("22 mm")
+
+PE56_L24_H32 <- read_excel("/Users/francescaabulencia/Downloads/PE-56-L24-H32.xlsx")
+PE56_L24_H32$Liner<- c("24 mm")
+
+
+Head32 <- rbind(PE52_L20_H32,PE54_L22_H32 ,PE56_L24_H32)
+Head32$RF <- Head32$RF * (-(10^-3))
+
+e <- ggplot(Head32, aes(x=Time, y=RF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Force Placed on a 32mm Femur Head") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) +  scale_y_continuous(limits = c(0,45))
+
+ggsave("e.png", e, width = 6, height = 5, units = c("in"))
+
+```
+
+
+```{r}
+PE52_L16_H36 <- read_excel("/Users/francescaabulencia/Downloads/PE-52-L16-H36.xlsx")
+PE52_L16_H36$Liner<- c("16 mm")
+
+PE54_L18_H36 <- read_excel("/Users/francescaabulencia/Downloads/PE-54-L18-H36.xlsx")
+PE54_L18_H36$Liner<- c("18 mm")
+
+PE56_L20_H36 <- read_excel("/Users/francescaabulencia/Downloads/PE-56-L20-H36.xlsx")
+PE56_L20_H36$Liner<- c("20 mm")
+
+
+Head36 <- rbind(PE52_L16_H36, PE54_L18_H36 ,PE56_L20_H36)
+Head36$RF <- Head36$RF * (-(10^-3))
+
+f <- ggplot(Head36, aes(x=Time, y=RF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Force Placed on a 36mm Femur Head") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) +  scale_y_continuous(limits = c(0,45))
+
+ggsave("f.png", f, width = 6, height = 5, units = c("in"))
+
+```
+
+
+```{r}
+PE52_L24_H28_1 <- read_excel("/Users/francescaabulencia/Downloads/1PE-52-L24-H28.xlsx")
+PE52_L24_H28_1$Liner<- c("24 mm")
+PE54_L26_H28_1<- read_excel("/Users/francescaabulencia/Downloads/1PE-54-L26-H28.xlsx")
+PE54_L26_H28_1$Liner<- c("26 mm")
+PE56_L28_H28_1  <- read_excel("/Users/francescaabulencia/Downloads/1PE-56-L28-H28.xlsx")
+PE56_L28_H28_1 $Liner<- c("28 mm")
+
+
+Head28 <- rbind(PE52_L24_H28_1 ,PE54_L26_H28_1  ,PE56_L28_H28_1 )
+Head28$RF <- Head28$RF * (-(10^-3))
+
+g <- ggplot(Head28, aes(x=Time, y=RF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Force Placed on a 28mm Femur Head") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) +  scale_y_continuous(limits = c(0,15))
+
+
+ggsave("g.png", g, width = 6, height = 5, units = c("in"))
+
+```
+
+```{r}
+PE52_L16_H36 <- read_excel("/Users/francescaabulencia/Downloads/1PE-52-L16-H36.xlsx")
+PE52_L16_H36$Liner<- c("16 mm")
+
+PE54_L18_H36 <- read_excel("/Users/francescaabulencia/Downloads/1PE-54-L18-H36.xlsx")
+PE54_L18_H36$Liner<- c("18 mm")
+
+PE56_L20_H36 <- read_excel("/Users/francescaabulencia/Downloads/1PE-56-L20-H36.xlsx")
+PE56_L20_H36$Liner<- c("20 mm")
+
+
+Head36 <- rbind(PE52_L16_H36, PE54_L18_H36 ,PE56_L20_H36)
+Head36$RF <- Head36$RF * (-(10^-3))
+
+f <- ggplot(Head36, aes(x=Time, y=RF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Force Placed on a 36mm Femur Head") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) +  scale_y_continuous(limits = c(0,15))
+
+ggsave("f.png", f, width = 6, height = 5, units = c("in"))
+
+```
+
+```{r}
+PE52_L20_H32 <- read_excel("/Users/francescaabulencia/Downloads/1PE-52-L20-H32.xlsx")
+PE52_L20_H32$Liner<- c("20 mm")
+PE52_L20_H32$`Fractional Displacement` <- PE52_L20_H32$U2L/0.010
+
+PE54_L22_H32 <- read_excel("/Users/francescaabulencia/Downloads/1PE-54-L22-H32.xlsx")
+PE54_L22_H32$Liner<- c("22 mm")
+
+PE56_L24_H32 <- read_excel("/Users/francescaabulencia/Downloads/1PE-56-L24-H32.xlsx")
+PE56_L24_H32$Liner<- c("24 mm")
+
+
+Head32 <- rbind(PE52_L20_H32,PE54_L22_H32 ,PE56_L24_H32)
+Head32$RF <- Head32$RF * (-(10^-3))
+
+h <- ggplot(Head32, aes(x=Time, y=U2L)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Force Placed on a 32mm Femur Head") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) 
+
+ggsave("h.png", h, width = 6, height = 5, units = c("in"))
+
+```
+
+
+```{r}
+#Head 28 Analysis
+
+H28_L30_15 <- read_excel("/Users/francescaabulencia/Downloads/15kN-PE-58-L30-H28.xlsx")
+H28_L30_15$Force <- c("15 kN")
+H28_L30_15$UF <- H28_L30_15$U/ -0.015
+  
+H28_L30_13 <- read_excel("/Users/francescaabulencia/Downloads/13kN-PE-58-L30-H28.xlsx")
+H28_L30_13$Force <- c("13 kN")
+H28_L30_13$UF <- H28_L30_13$U/ -0.015
+
+H28_L30_12 <- read_excel("/Users/francescaabulencia/Downloads/12kN-PE-58-L30-H28.xlsx")
+H28_L30_12$Force <- c("12 kN")
+H28_L30_12$UF <- H28_L30_12$U/ -0.015
+
+H28_L30_11 <- read_excel("/Users/francescaabulencia/Downloads/11kN-PE-58-L30-H28.xlsx")
+H28_L30_11$Force <- c("11 kN")
+H28_L30_11$UF <- H28_L30_11$U/ -0.015
+
+H28_L30_10 <- read_excel("/Users/francescaabulencia/Downloads/10kN-PE-58-L30-H28.xlsx")
+H28_L30_10$Force <- c("10 kN")
+H28_L30_10$UF <- H28_L30_10$U/ -0.015
+
+
+H28_L30 <- rbind(H28_L30_15, H28_L30_13, H28_L30_11, H28_L30_10)
+H28_L30$Liner <- c("30")
+
+#ggplot(H28_L30, aes(x=Time, y=UF)) + geom_point(aes(colour=Force)) + geom_line(aes(colour=Force)) + ggtitle("Fractional Displacement of 30mm Liner with 28mm Femur Head") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Force")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) 
+
+
+
+H28_L28_15 <- read_excel("/Users/francescaabulencia/Downloads/15kN-PE-56-L28-H28.xlsx")
+H28_L28_15$Force <- c("15 kN")
+H28_L28_15$UF <- H28_L28_15$U/ -0.014
+  
+
+H28_L28_13 <- read_excel("/Users/francescaabulencia/Downloads/13kN-PE-56-L28-H28.xlsx")
+H28_L28_13$Force <- c("13 kN")
+H28_L28_13$UF <- H28_L28_13$U/ -0.014
+
+H28_L28_11 <- read_excel("/Users/francescaabulencia/Downloads/11kN-PE-56-L28-H28.xlsx")
+H28_L28_11$Force <- c("11 kN")
+H28_L28_11$UF <- H28_L28_11$U/ -0.014
+
+H28_L28_10 <- read_excel("/Users/francescaabulencia/Downloads/10kN-PE-56-L28-H28.xlsx")
+H28_L28_10$Force <- c("10 kN")
+H28_L28_10$UF <- H28_L28_10$U/ -0.014
+
+
+H28_L28 <- rbind(H28_L28_15, H28_L28_13,H28_L28_11, H28_L28_10)
+H28_L28$Liner <- c("28")
+
+
+
+H28_L26_15 <- read_excel("/Users/francescaabulencia/Downloads/15kN-PE-54-L26-H28.xlsx")
+H28_L26_15$Force <- c("15 kN")
+H28_L26_15$UF <- H28_L26_15$U/ -0.013
+  
+
+H28_L26_13 <- read_excel("/Users/francescaabulencia/Downloads/13kN-PE-54-L26-H28.xlsx")
+H28_L26_13$Force <- c("13 kN")
+H28_L26_13$UF <- H28_L26_13$U/ -0.013
+
+H28_L26_11 <- read_excel("/Users/francescaabulencia/Downloads/11kN-PE-54-L26-H28.xlsx")
+H28_L26_11$Force <- c("11 kN")
+H28_L26_11$UF <- H28_L26_11$U/ -0.013
+
+H28_L26_10 <- read_excel("/Users/francescaabulencia/Downloads/10kN-PE-54-L26-H28.xlsx")
+H28_L26_10$Force <- c("10 kN")
+H28_L26_10$UF <- H28_L26_10$U/ -0.013
+
+
+H28_L26 <- rbind(H28_L26_15, H28_L26_13,H28_L26_11, H28_L26_10)
+H28_L26$Liner <- c("26")
+
+H28_L24_15 <- read_excel("/Users/francescaabulencia/Downloads/15kN-PE-52-L24-H28.xlsx")
+H28_L24_15$Force <- c("15 kN")
+H28_L24_15$UF <- H28_L24_15$U/ -0.012
+  
+
+H28_L24_13 <- read_excel("/Users/francescaabulencia/Downloads/13kN-PE-52-L24-H28.xlsx")
+H28_L24_13$Force <- c("13 kN")
+H28_L24_13$UF <- H28_L24_13$U/ -0.012
+
+H28_L24_11 <- read_excel("/Users/francescaabulencia/Downloads/11kN-PE-52-L24-H28.xlsx")
+H28_L24_11$Force <- c("11 kN")
+H28_L24_11$UF <- H28_L24_11$U/ -0.012
+
+H28_L24_10 <- read_excel("/Users/francescaabulencia/Downloads/10kN-PE-52-L24-H28.xlsx")
+H28_L24_10$Force <- c("10 kN")
+H28_L24_10$UF <- H28_L24_10$U/ -0.012
+
+
+H28_L24 <- rbind(H28_L24_15, H28_L24_13,H28_L24_11, H28_L24_10)
+H28_L24$Liner <- c("24")
+
+H28 <- rbind(H28_L24, H28_L26, H28_L28, H28_L30)
+H28$Liner <- as.numeric(H28$Liner)
+H28$Cup <- 28+H28$Liner
+
+
+j <- H28 %>% filter(Force=="10 kN") %>% ggplot(aes(x=Time, y=UF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Fractional Displacement of 28mm Femur Head with 10kN Force") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77))  + scale_y_continuous(limits = c(0,0.02))
+
+k <- H28 %>% filter(Force=="11 kN") %>% ggplot(aes(x=Time, y=UF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Fractional Displacement of 28mm Femur Head with 11kN Force") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) + scale_y_continuous(limits = c(0,0.02))
+
+l <- H28 %>% filter(Force=="13 kN") %>% ggplot(aes(x=Time, y=UF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Fractional Displacement of 28mm Femur Head with 13kN Force") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) + scale_y_continuous(limits = c(0,0.02))
+
+m <- H28 %>% filter(Force=="15 kN") %>% ggplot(aes(x=Time, y=UF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Fractional Displacement of 28mm Femur Head with 15kN Force") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) + scale_y_continuous(limits = c(0,0.02))
+
+ggsave("j.png", j, width = 6, height = 5, units = c("in"))
+
+ggsave("k.png", k, width = 6, height = 5, units = c("in"))
+
+ggsave("l.png", l, width = 6, height = 5, units = c("in"))
+
+ggsave("m.png", m, width = 6, height = 5, units = c("in"))
+```
+
+
+
+```{r}
+#Head 36 Analysis
+
+H36_L22_18 <- read_excel("/Users/francescaabulencia/Downloads/18kN-PE-58-L22-H36.xlsx")
+H36_L22_18$Force <- c("18 kN")
+H36_L22_18$UF <- H36_L22_18$U/ -0.011
+  
+H36_L22_20 <- read_excel("/Users/francescaabulencia/Downloads/20kN-PE-58-L22-H36.xlsx")
+H36_L22_20$Force <- c("20 kN")
+H36_L22_20$UF <- H36_L22_20$U/ -0.011
+
+H36_L22_22 <- read_excel("/Users/francescaabulencia/Downloads/22kN-PE-58-L22-H36.xlsx")
+H36_L22_22$Force <- c("22 kN")
+H36_L22_22$UF <- H36_L22_22$U/ -0.011
+
+H36_L22_24 <- read_excel("/Users/francescaabulencia/Downloads/24kN-PE-58-L22-H36.xlsx")
+H36_L22_24$Force <- c("24 kN")
+H36_L22_24$UF <- H36_L22_24$U/ -0.011
+
+H36_L22 <- rbind(H36_L22_18, H36_L22_20, H36_L22_22, H36_L22_24)
+H36_L22$Liner <- c("22")
+
+
+
+H36_L20_18 <- read_excel("/Users/francescaabulencia/Downloads/18kN-PE-56-L20-H36.xlsx")
+H36_L20_18$Force <- c("18 kN")
+H36_L20_18$UF <- H36_L20_18$U/ -0.01
+  
+H36_L20_20 <- read_excel("/Users/francescaabulencia/Downloads/20kN-PE-56-L20-H36.xlsx")
+H36_L20_20$Force <- c("20 kN")
+H36_L20_20$UF <- H36_L20_20$U/ -0.01
+
+H36_L20_22 <- read_excel("/Users/francescaabulencia/Downloads/22kN-PE-56-L20-H36.xlsx")
+H36_L20_22$Force <- c("22 kN")
+H36_L20_22$UF <- H36_L20_22$U/ -0.01
+
+H36_L20_24 <- read_excel("/Users/francescaabulencia/Downloads/24kN-PE-56-L20-H36.xlsx")
+H36_L20_24$Force <- c("24 kN")
+H36_L20_24$UF <- H36_L20_24$U/ -0.01
+
+H36_L20 <- rbind(H36_L20_18, H36_L20_20, H36_L20_22, H36_L20_24)
+H36_L20$Liner <- c("20")
+
+
+
+H36_L18_18 <- read_excel("/Users/francescaabulencia/Downloads/18kN-PE-54-L18-H36.xlsx")
+H36_L18_18$Force <- c("18 kN")
+H36_L18_18$UF <- H36_L18_18$U/ -0.009
+  
+H36_L18_20 <- read_excel("/Users/francescaabulencia/Downloads/20kN-PE-54-L18-H36.xlsx")
+H36_L18_20$Force <- c("20 kN")
+H36_L18_20$UF <- H36_L18_20$U/ -0.009
+
+H36_L18_22 <- read_excel("/Users/francescaabulencia/Downloads/22kN-PE-54-L18-H36.xlsx")
+H36_L18_22$Force <- c("22 kN")
+H36_L18_22$UF <- H36_L18_22$U/ -0.009
+
+H36_L18_24 <- read_excel("/Users/francescaabulencia/Downloads/24kN-PE-54-L18-H36.xlsx")
+H36_L18_24$Force <- c("24 kN")
+H36_L18_24$UF <- H36_L18_24$U/ -0.009
+
+H36_L18 <- rbind(H36_L18_18, H36_L18_20, H36_L18_22, H36_L18_24)
+H36_L18$Liner <- c("18")
+
+
+H36_L16_18 <- read_excel("/Users/francescaabulencia/Downloads/18kN-PE-52-L16-H36.xlsx")
+H36_L16_18$Force <- c("18 kN")
+H36_L16_18$UF <- H36_L16_18$U/ -0.008
+  
+H36_L16_20 <- read_excel("/Users/francescaabulencia/Downloads/20kN-PE-52-L16-H36.xlsx")
+H36_L16_20$Force <- c("20 kN")
+H36_L16_20$UF <- H36_L16_20$U/ -0.008
+
+H36_L16_22 <- read_excel("/Users/francescaabulencia/Downloads/22kN-PE-52-L16-H36.xlsx")
+H36_L16_22$Force <- c("22 kN")
+H36_L16_22$UF <- H36_L16_22$U/ -0.008
+
+H36_L16_24 <- read_excel("/Users/francescaabulencia/Downloads/24kN-PE-52-L16-H36.xlsx")
+H36_L16_24$Force <- c("24 kN")
+H36_L16_24$UF <- H36_L16_24$U/ -0.008
+
+H36_L16 <- rbind(H36_L16_18, H36_L16_20, H36_L16_22, H36_L16_24)
+H36_L16$Liner <- c("16")
+
+
+H36 <- rbind(H36_L22, H36_L20, H36_L18, H36_L16)
+
+
+
+n <- H36 %>% filter(Force=="18 kN") %>% ggplot(aes(x=Time, y=UF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Fractional Displacement of 36mm Femur Head with 18kN Force") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77))  + scale_y_continuous(limits = c(0,0.02))
+
+o <- H36 %>% filter(Force=="20 kN") %>% ggplot(aes(x=Time, y=UF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Fractional Displacement of 36mm Femur Head with 20kN Force") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) + scale_y_continuous(limits = c(0,0.02))
+
+p <- H36 %>% filter(Force=="22 kN") %>% ggplot(aes(x=Time, y=UF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Fractional Displacement of 36mm Femur Head with 22kN Force") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) + scale_y_continuous(limits = c(0,0.02))
+
+q <- H36 %>% filter(Force=="24 kN") %>% ggplot(aes(x=Time, y=UF)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Fractional Displacement of 36mm Femur Head with 24kN Force") + xlab("Cycle 1") + ylab("Fractional Displacement") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) + scale_y_continuous(limits = c(0,0.02))
+
+ggsave("n.png", n, width = 6, height = 5, units = c("in"))
+
+ggsave("o.png", o, width = 6, height = 5, units = c("in"))
+
+ggsave("p.png", p, width = 6, height = 5, units = c("in"))
+
+ggsave("q.png", q, width = 6, height = 5, units = c("in"))
+```
+
+```{r}
+
+H36$Liner <- as.numeric(H36$Liner)
+H36$Cup <- 36+H36$Liner
+H36$Liner <- as.factor(H36$Liner)
+H28$Liner <- as.factor(H28$Liner)
+df <- rbind(H36, H28)
+
+```
+
+```{r}
+#ContactStress
+
+H28_L30_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-58-L30-H28.xlsx")
+H28_L28_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-56-L28-H28.xlsx")
+H28_L26_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-54-L26-H28.xlsx")
+H28_L24_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-52-L24-H28.xlsx")
+
+H28_L30_CS$Liner <- c("30mm")
+H28_L28_CS$Liner <- c("28mm")
+H28_L26_CS$Liner <- c("26mm")
+H28_L24_CS$Liner <- c("24mm")
+
+H28_CS <- rbind(H28_L30_CS, H28_L28_CS, H28_L26_CS, H28_L24_CS)
+H28_CS$Stress <- H28_CS$Stress / (10^6)
+
+r  <- H28_CS %>% ggplot(aes(x=Time, y=Stress)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Average Contact Stress of Liner with 28mm Femur Head") + xlab("Cycle 1") + ylab("Stress (MPa)") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) + scale_y_continuous(limits = c(0,10))
+
+
+ggsave("r.png", r, width = 6, height = 5, units = c("in"))
+
+H32_L26_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-58-L26-H32.xlsx")
+H32_L24_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-56-L24-H32.xlsx")
+H32_L22_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-54-L22-H32.xlsx")
+H32_L20_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-52-L20-H32.xlsx")
+
+H32_L26_CS$Liner <- c("26mm")
+H32_L24_CS$Liner <- c("24mm")
+H32_L22_CS$Liner <- c("22mm")
+H32_L20_CS$Liner <- c("20mm")
+
+H32_CS <- rbind(H32_L26_CS, H32_L24_CS, H32_L22_CS, H32_L20_CS)
+H32_CS$Stress <- H32_CS$Stress / (10^6)
+
+
+s  <- H32_CS %>% ggplot(aes(x=Time, y=Stress)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Average Contact Stress of Liner with 32mm Femur Head") + xlab("Cycle 1") + ylab("Stress (MPa)") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) + scale_y_continuous(limits = c(0,10))
+
+ggsave("s.png", s, width = 6, height = 5, units = c("in"))
+
+H36_L22_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-58-L22-H36.xlsx")
+H36_L20_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-56-L20-H36.xlsx")
+H36_L18_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-54-L18-H36.xlsx")
+H36_L16_CS <- read_excel("/Users/francescaabulencia/Downloads/CS-52-L16-H36.xlsx")
+
+
+H36_L22_CS$Liner <- c("22mm")
+H36_L20_CS$Liner <- c("20mm")
+H36_L18_CS$Liner <- c("18mm")
+H36_L16_CS$Liner <- c("16mm")
+
+H36_CS <- rbind(H36_L22_CS, H36_L20_CS, H36_L18_CS,H36_L16_CS)
+
+H36_CS$Stress <- H36_CS$Stress / (10^6)
+
+t  <- H36_CS %>% ggplot(aes(x=Time, y=Stress)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Average Contact Stress of Liner with 36mm Femur Head") + xlab("Cycle 1") + ylab("Stress (MPa)") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) + scale_y_continuous(limits = c(0,10))
+
+ggsave("t.png", t, width = 6, height = 5, units = c("in"))
+
+H32_L20_CS$Head <- c("32")
+H36_L20_CS$Head <- c("36")
+
+df1 <- rbind(H32_L20_CS,H36_L20_CS)
+df1$Stress <- df1$Stress * 10^(-6)
+
+u  <- df1 %>% ggplot(aes(x=Time, y=Stress)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Average Contact Stress of 20 mm Liner") + xlab("Cycle 1") + ylab("Stress (MPa)") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) + scale_y_continuous(limits = c(0,10))
+
+ggsave("u.png", u, width = 6, height = 5, units = c("in"))
+
+
+
+
+H28_L24_CS$Head <- c("28")
+H32_L24_CS$Head <- c("32")
+
+df2 <- rbind(H28_L24_CS,H32_L24_CS)
+df2$Stress <- df2$Stress * 10^(-6)
+
+v  <- df2 %>% ggplot(aes(x=Time, y=Stress)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Average Contact Stress of 24 mm Liner") + xlab("Cycle 1") + ylab("Stress (MPa)") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) + scale_y_continuous(limits = c(0,10))
+
+ggsave("v.png", v, width = 6, height = 5, units = c("in"))
+```
+
+```{r}
+#CS FIxed cup
+
+Cup28 <- rbind(H28_L30_CS, H32_L26_CS, H36_L22_CS)
+Cup28$Stress <- Cup28$Stress*10^-6
+x <- Cup28 %>% ggplot(aes(x=Time, y=Stress)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Average Contact Stress at Fixed Shell Size of 58mm") + xlab("Cycle 1") + ylab("Stress (MPa)") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) 
+
+H36_L16_CS$Head <- c("36")
+Cup52 <- rbind(H28_L24_CS, H36_L16_CS, H32_L20_CS)
+Cup52$Stress <- Cup52$Stress*10^-6
+y <- Cup52 %>% ggplot(aes(x=Time, y=Stress)) + geom_point(aes(colour=Liner)) + geom_line(aes(colour=Liner)) + ggtitle("Average Contact Stress at Fixed Shell Size of 52mm") + xlab("Cycle 1") + ylab("Stress (MPa)") + labs(col="Liner Size")  + theme(plot.title = element_text(hjust = 0.5)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.88, 0.77)) 
+
+ggsave("x.png", x, width = 6, height = 5, units = c("in"))
+ggsave("y.png", y, width = 6, height = 5, units = c("in"))
+
+```
+
+
+
+
+```{r}
+#0.0002m Analysis
+
+#Liner 20
+PE52_L20_H32 <- read_excel("/Users/francescaabulencia/Downloads/2PE-52-L20-H32.xlsx")
+PE52_L20_H32$Head <- c("32 mm")
+PE52_L20_H32$RF <- -1*PE52_L20_H32$RF
+PE56_L20_H36 <- read_excel("/Users/francescaabulencia/Downloads/2PE-56-L20-H36.xlsx")
+PE56_L20_H36$Head <- c("36 mm")
+PE56_L20_H36$RF <- -1*PE56_L20_H36$RF
+
+Liner20 <- rbind(PE52_L20_H32, PE56_L20_H36)
+Liner20$RF <- Liner20$RF * (10^-3)
+Liner20$U2L <- Liner20$U2L * (-10^3)
+
+Liner20$`Fractional Displacement` <- Liner20$U2L/10
+
+
+a <- ggplot(Liner20, aes(x=Time, y=RF)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Force Required to Deform a 20mm UHMWPE Liner by 0.2mm") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) +  scale_y_continuous(limits = c(0,30)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.87, 0.85))
+
+ggsave("a.png", a, width = 6, height = 3, units = c("in"))
+
+
+d <- ggplot(Liner20, aes(x=Time, y=U2L)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Displacement of 20mm UHMWPE Liner by 0.2mm") + xlab("Cycle 1") + ylab("Displacement (mm)") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position = c(0.87, 0.85))+ theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) 
+
+ggsave("d.png", d, width = 6, height = 3, units = c("in"))
+    
+#Liner 22
+PE54_L22_H32 <- read_excel("/Users/francescaabulencia/Downloads/2PE-54-L22-H32.xlsx")
+PE54_L22_H32$Head <- c("32 mm")
+PE54_L22_H32$RF <- -1*PE54_L22_H32$RF
+PE58_L22_H36 <- read_excel("/Users/francescaabulencia/Downloads/2PE-58-L22-H36.xlsx")
+PE58_L22_H36$Head <- c("36 mm")
+PE58_L22_H36$RF <- -1*PE58_L22_H36$RF
+
+Liner22 <- rbind(PE54_L22_H32, PE58_L22_H36)
+Liner22$RF <- Liner22$RF * (10^-3)
+Liner22$U2L <- Liner22$U2L * (-10^3)
+
+Liner22$`Fractional Displacement` <- Liner22$U2L/11
+
+
+b <-ggplot(Liner22, aes(x=Time, y=RF)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Force Required to Deform a 22mm UHMWPE Liner by 0.2mm") + xlab("Cycle 1") + ylab("Force (kN)") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) +  scale_y_continuous(limits = c(0,30)) + scale_x_continuous(breaks = 2) + theme(legend.position = c(0.87, 0.85))
+
+ggsave("b.png", b, width = 6, height = 3, units = c("in"))
+
+
+c <- ggplot(Liner22, aes(x=Time, y=U2L)) + geom_point(aes(colour=Head)) + geom_line(aes(colour=Head)) + ggtitle("Displacement of 22mm UHMWPE Liner by 0.2mm") + xlab("Cycle 1") + ylab("Displacement (mm)") + labs(col="Femur Head Size")  + theme(plot.title = element_text(hjust = 0.5)) + theme(legend.position = c(0.87, 0.85))+ theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) 
+
+ggsave("c.png", c, width = 6, height = 3, units = c("in"))
+```
+
+
+
+
+
